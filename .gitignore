@@ -1,0 +1,10 @@
+.bundle
+coverage/*
+config/*.yml
+.rvmrc
+*.swp
+*.swo
+.DS_Store
+.yardoc/*
+stats
+stats/*
