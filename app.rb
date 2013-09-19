@@ -1,10 +1,19 @@
-require "./config/boot.rb"
+# encondig utf-8
 
-graph "Our Business", :prefix => '/graphs' do
-  area "Buys", [1,5,2,3,4]
-  bar "Sales", [5,2,6,2,1]
+require "./config/boot.rb"
+$graphs = []
+Klass.new("./assets/planilha definitiva.xls").graphs.each do |graph|
+  $graphs << graph[0]
+  graph graph[0], :type => 'pie' do
+    pie graph[0], graph[1]
+  end
 end
 
 get "/" do
-  "<img src=\"http://localhost:9292/graphs/our_business.svg\" >"
+  view = "Graficos"
+  $graphs.each do |name|
+    url = name.gsub(/[^a-zA-Z0-9_\s]/, '').gsub(/\s/, '_').downcase
+    view << "<br> <img width=\"800px\" src=\"http://localhost:9292/#{url}.svg\"></img>"
+  end
+  view
 end
