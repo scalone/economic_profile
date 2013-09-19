@@ -15,10 +15,11 @@ Klass.new("./assets/planilha definitiva.xls").graphs.each do |graph|
 end
 
 get "/" do
-  view = "Graficos"
+  @graphics = ""
   $graphs.each do |name|
     url = name.gsub(/[^a-zA-Z0-9_\s]/, '').gsub(/\s/, '_').downcase
-    view << "<br> <img width=\"800px\" src=\"http://localhost:9292/#{url}.svg\"></img>"
+    @graphics << "<br><br><br> <img width=\"800px\" src=\"/#{url}.svg\"></img>"
   end
-  view
+
+  erb :home
 end
