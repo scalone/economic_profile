@@ -1,3 +1,12 @@
+GIT
+  remote: git@github.com:scalone/roo.git
+  revision: 1c2aa3ae90eb1d8ab53593a8d239940183d0add3
+  specs:
+    roo (1.12.1)
+      nokogiri
+      rubyzip
+      spreadsheet (> 0.6.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -35,10 +44,6 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    roo (1.12.1)
-      nokogiri
-      rubyzip
-      spreadsheet (> 0.6.4)
     ruby-ole (1.2.11.7)
     rubyzip (1.0.0)
     scruffy (0.2.6)
@@ -63,7 +68,7 @@ DEPENDENCIES
   builder
   guard
   guard-test
-  roo
+  roo!
   rubyzip
   sinatra
   sinatra-graph
