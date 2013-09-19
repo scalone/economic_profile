@@ -4,17 +4,31 @@ class Report
   GRAPHS = {
     :age_group         => "Faixa Etária",
     :civil_state       => "Estado civil",
-    :suns              => "Filhos",
+    :children          => "Filhos",
     :my_address        => "Reside em Franca",
-    :locomotion        => "Locomoção",
+    :transport         => "Locomoção",
     :address_situation => "Residência Própria",
-    :live_with         => "Com quem mora",
+    :living            => "Com quem mora",
     :family            => "Composição familiar",
-    :activity          => "Atividade Remunerada Familiar",
-    :rent              => "Renda Familiar",
-    :working_area      => "Area de trabalho",
+    :family_work       => "Atividade Remunerada Familiar",
+    :family_rent       => "Renda Familiar",
+    :work              => "Area de trabalho",
     :school_life       => "Vida escolar",
-    :languages         => "Idiomas"
+    :know_languages    => "Idiomas"
+  }
+
+  PROPERTIES = {
+    :civil_state       => :string,
+    :children          => :string,
+    :transport         => :string,
+    :address_situation => :string,
+    :living            => :string,
+    :family            => :integer,
+    :family_work       => :integer,
+    :family_rent       => :string,
+    :work              => :string,
+    :school_life       => :string,
+    :know_languages    => :string
   }
 
   def initialize(path)
@@ -28,7 +42,7 @@ class Report
     xls.each_with_index do |row, index|
       next if index == 0
       @students << Student.new(row)
-    end 
+    end
   end
 
   def graphs
@@ -59,15 +73,6 @@ class Report
     result
   end
 
-  def civil_state
-    states = students.collect{ |student| student.civil_state.capitalize }
-    states.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def suns
-    children = students.collect{ |student| student.children.capitalize }
-    children.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
 
   # TODO: Check invalid address to inform
   def my_address
@@ -76,7 +81,7 @@ class Report
       text = student.cep.to_i.to_s.gsub(/[^\d]/, '')
       if text.size == 8
         # 14 - Initial of Franca CEP
-          next("sim") if student.cep.to_s[0..1] == "14"
+          next("Sim") if student.cep.to_s[0..1] == "14"
       end
       "Não"
     end
@@ -84,48 +89,20 @@ class Report
     ceps.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
   end
 
-  def locomotion
-    transports = students.collect{ |student| student.transport.capitalize }
-    transports.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
+  def method_missing(method, *args)
+    if PROPERTIES.include?(method)
+      to_graph_value(method, PROPERTIES[method])
+    else
+      super(method, *args)
+    end
   end
 
-  def address_situation
-    situations = students.collect{ |student| student.address_situation.capitalize }
-    situations.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def live_with
-    collection = students.collect{ |student| student.living.capitalize }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def family
-    collection = students.collect{ |student| student.family_composition_number.to_i }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def activity
-    collection = students.collect{ |student| student.family_worker_number.to_i }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def rent
-    collection = students.collect{ |student| student.family_rent }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def working_area
-    collection = students.collect{ |student| student.work }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def school_life
-    collection = students.collect{ |student| student.school_life }
-    collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
-  end
-
-  def languages
-    collection = students.collect{ |student| student.know_languages }
+  def to_graph_value(property, type)
+    if type == :integer
+      collection = students.collect{ |student| student.public_send(property).to_i }
+    else
+      collection = students.collect{ |student| student.public_send(property).to_s.capitalize }
+    end
     collection.group_by {|value| value}.inject({}) {|hash, (key, value)| hash[key] = value.size; hash}
   end
 end
