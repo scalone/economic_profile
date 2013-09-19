@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem "sinatra"
 gem "builder"
 gem "sinatra-graph", :require => "sinatra/graph"
-gem "roo", :git => "git@github.com:scalone/roo.git"
+gem "roo", :github => "scalone/roo"
 gem "spreadsheet"
 gem 'rubyzip', :require => "zip"
 

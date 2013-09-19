@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:scalone/roo.git
+  remote: git://github.com/scalone/roo.git
   revision: 1c2aa3ae90eb1d8ab53593a8d239940183d0add3
   specs:
     roo (1.12.1)
