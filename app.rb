@@ -1,6 +1,11 @@
 # encondig utf-8
 
 require "./config/boot.rb"
+
+set :public_folder, "public"
+set :root, File.dirname(__FILE__)
+set :views, "app/views"
+
 $graphs = []
 Klass.new("./assets/planilha definitiva.xls").graphs.each do |graph|
   $graphs << graph[0]
