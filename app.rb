@@ -7,10 +7,10 @@ set :root, File.dirname(__FILE__)
 set :views, "app/views"
 
 $graphs = []
-Report.new("./assets/planilha definitiva.xls").graphs.each do |graph|
-  $graphs << graph[0]
-  graph graph[0], :type => 'pie' do
-    pie graph[0], graph[1]
+Report.new("./assets/planilha definitiva.xls").graphs.each do |report|
+  $graphs << report[0]
+  graph report[0], :type => 'pie' do
+    pie report[0], report[1]
   end
 end
 
