@@ -25,6 +25,6 @@ get "/" do
 end
 
 get "/presentation" do
-  @slides = Dir["public/imgs/Presentation*"].collect {|slide| slide.split("/").last }
+  @slides = Dir["public/imgs/Presentation*"].collect {|slide| slide.split("/").last }.sort
   erb :presentation
 end
