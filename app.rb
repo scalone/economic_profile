@@ -23,3 +23,8 @@ get "/" do
 
   erb :home
 end
+
+get "/presentation" do
+  @slides = Dir["public/imgs/Presentation*"].collect {|slide| slide.split("/").last }
+  erb :presentation
+end

@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8">
+		<title>RELATÓRIO DE H.A.E.</title>
+		<link rel="stylesheet" href="css/reveal.min.css">
+	</head>
+
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<% @slides.each do |slide| %>
+					<section data-background-transition="slide" data-background="imgs/<%= slide %>" > </section>
+				<% end %>
+
+			</div>
+		</div>
+		<script src="js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script> Reveal.initialize(); </script>
+	</body>
+</html>
