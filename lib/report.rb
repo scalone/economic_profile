@@ -81,7 +81,7 @@ class Report
       text = student.cep.to_i.to_s.gsub(/[^\d]/, '')
       if text.size == 8
         # 14 - Initial of Franca CEP
-          next("Sim") if student.cep.to_s[0..1] == "14"
+          next("Sim") if student.cep.to_s[0..2] == "144"
       end
       "Não"
     end
