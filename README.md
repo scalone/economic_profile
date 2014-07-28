@@ -27,6 +27,9 @@ Open on Browser:
 
 	$ guard start
 
+## State
+Finished and presented project.
+
 ## Contributing
 
 1. Fork it
